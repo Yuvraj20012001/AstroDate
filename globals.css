@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(160deg, #f6e9ff 0%, #ffe4f1 100%);
+  background-attachment: fixed;
+  color: #2b1235;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Fredoka', sans-serif;
+}
+
+input, select {
+  @apply w-full rounded-xl border-[1.5px] border-cardLine bg-accentSoft px-3 py-2.5 text-ink outline-none;
+}
+input:focus, select:focus {
+  @apply border-accent;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-accent to-accent2 bg-clip-text text-transparent;
+}
