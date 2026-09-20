@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { createSession, clearSession, getSession } from "@/lib/session";
+import { getConversation } from "@/lib/messages";
 
 const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
 
@@ -104,4 +105,49 @@ export async function requireSession() {
   const session = await getSession();
   if (!session) redirect("/login");
   return session;
+}
+
+// ---------- Messaging ----------
+
+export async function sendMessageAction(
+  recipientUsername: string,
+  content: string
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await getSession();
+  if (!session) return { ok: false, error: "Not logged in." };
+
+  const trimmed = content.trim();
+  if (!trimmed) return { ok: false, error: "Message is empty." };
+  if (trimmed.length > 2000) return { ok: false, error: "Message is too long." };
+
+  const { data: recipient } = await supabase
+    .from("users")
+    .select("id")
+    .eq("username", recipientUsername)
+    .maybeSingle();
+  if (!recipient) return { ok: false, error: "That user doesn't exist." };
+  if (recipient.id === session.userId) return { ok: false, error: "You can't message yourself." };
+
+  const { error } = await supabase.from("messages").insert({
+    sender_id: session.userId,
+    recipient_id: recipient.id,
+    content: trimmed,
+  });
+
+  if (error) return { ok: false, error: "Message could not be sent. Try again." };
+  return { ok: true };
+}
+
+export async function fetchConversationAction(otherUsername: string) {
+  const session = await getSession();
+  if (!session) return [];
+
+  const { data: other } = await supabase
+    .from("users")
+    .select("id")
+    .eq("username", otherUsername)
+    .maybeSingle();
+  if (!other) return [];
+
+  return getConversation(session.userId, other.id);
 }

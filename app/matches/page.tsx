@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import { supabase } from "@/lib/supabase";
@@ -55,8 +56,9 @@ export default async function MatchesPage() {
   return (
     <main className="min-h-screen">
       <header className="bg-gradient-to-r from-accent to-accent2 text-white px-6 py-4 flex items-center justify-between">
-        <span className="font-display text-2xl font-bold">Soulmate Score</span>
+        <span className="font-display text-2xl font-bold">🔮 Soulmate Score</span>
         <div className="flex items-center gap-4 text-sm">
+          <Link href="/messages" className="text-highlight font-bold">Chats</Link>
           <span className="text-highlight">Hi, {me.name}</span>
           <form action={logoutAction}>
             <button className="underline hover:no-underline">Log out</button>

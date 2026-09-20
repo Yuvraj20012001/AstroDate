@@ -1,15 +1,24 @@
 import Link from "next/link";
 import { signupAction } from "@/app/actions";
 
+function dobBounds() {
+  const today = new Date();
+  const max = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  const min = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+  const fmt = (d: Date) => d.toISOString().slice(0, 10);
+  return { max: fmt(max), min: fmt(min) };
+}
+
 export default function SignupPage({
   searchParams,
 }: {
   searchParams: { error?: string };
 }) {
+  const dob = dobBounds();
   return (
     <main className="min-h-screen flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md bg-white border border-cardLine rounded-2xl p-7 shadow-lg shadow-pink-100">
-        <h1 className="font-display text-3xl font-bold gradient-text mb-1">Create your profile</h1>
+        <h1 className="font-display text-3xl font-bold gradient-text mb-1">🔮 Create your profile</h1>
         <p className="text-sm text-inkSoft mb-5">
           Your birth details are used only to calculate your chart — nothing else is required.
         </p>
@@ -65,7 +74,7 @@ export default function SignupPage({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-inkSoft mb-1">Date of birth</label>
-              <input name="date_of_birth" type="date" required />
+              <input name="date_of_birth" type="date" required max={dob.max} min={dob.min} />
             </div>
             <div>
               <label className="block text-xs font-bold text-inkSoft mb-1">Time of birth</label>

@@ -9,7 +9,7 @@ export default function LoginPage({
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm bg-white border border-cardLine rounded-2xl p-7 shadow-lg shadow-pink-100">
-        <h1 className="font-display text-3xl font-bold gradient-text mb-5">Log in</h1>
+        <h1 className="font-display text-3xl font-bold gradient-text mb-5">🔮 Log in</h1>
 
         {searchParams.error && (
           <p className="mb-4 rounded-xl bg-red-50 border border-red-200 text-bad text-sm px-3 py-2">

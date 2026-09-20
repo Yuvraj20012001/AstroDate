@@ -48,6 +48,12 @@ export default async function MatchDetailPage({ params }: { params: { username: 
             <span className="text-xl text-inkSoft"> / {TOTAL_MAX}</span>
           </div>
           <p className="mt-1 font-bold text-good">{verdictFor(total)}</p>
+          <Link
+            href={`/messages/${other.username}`}
+            className="inline-block mt-4 px-6 py-2.5 rounded-full bg-gradient-to-r from-accent to-accent2 text-white font-bold text-sm"
+          >
+            Message {other.name} 💬
+          </Link>
         </div>
 
         <h3 className="font-display text-lg font-bold text-ink mb-3">The breakdown</h3>

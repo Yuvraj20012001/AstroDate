@@ -9,7 +9,7 @@ export default async function LandingPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-md text-center">
-        <h1 className="font-display text-5xl font-bold gradient-text mb-3">Soulmate Score</h1>
+        <h1 className="font-display text-5xl font-bold gradient-text mb-3">🔮 Soulmate Score</h1>
         <p className="text-inkSoft mb-8">
           Enter your birth details once. See everyone here ranked by how well you match —
           by love, by chemistry, by vibe. No swiping. Just the numbers. ✨
